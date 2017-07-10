@@ -48,22 +48,41 @@ def gradientdescent(x,y,theta,alpha,maxloop):
 
     return theta,cost
 
-alpha = 0.01
+alpha = 0.01 # learning rate
 maxloop = 1000
 thetas,costs = gradientdescent(X,Y,theta,alpha,maxloop)
 
 print(thetas)
 print(costs[maxloop-1])# 打印迭代1000次之后的cost结果，为4.51595550308，显然比第一次好很多
 
-# 图形化cost function
-x=np.linspace(data.Population.min(),data.Population.max(),100)
-fun = thetas[0,0] + (thetas[0,1]*x)
+# 在求出theta后，图形化linear regression
+def draw_h(data,thetas):
+    x=np.linspace(data.Population.min(),data.Population.max(),100)
+    fun = thetas[0,0] + (thetas[0,1]*x)
 
+    fig,ax = plt.subplots(figsize=(12,8))
+    ax.plot(x,fun,'r',label='Prediction')
+    ax.scatter(data.Population,data.Profit,label='Training Data')
+    ax.legend(loc=2)
+    ax.set_xlabel('Population')
+    ax.set_ylabel('Profit')
+    ax.set_title('Predicted Profit vs. Populution Size')
+    plt.show()
+
+draw_h(data,thetas)
+
+# 学习速率不一样，cost结果也不一样
+alpha = 0.005 # learning rate
+maxloop = 1000
+thetas,costs2 = gradientdescent(X,Y,theta,alpha,maxloop)
+draw_h(data,thetas)
+
+# 显示随着循环次数，两次cost的递减函数
 fig,ax = plt.subplots(figsize=(12,8))
-ax.plot(x,fun,'r',label='Prediction')
-ax.scatter(data.Population,data.Profit,label='Training Data')
-ax.legend(loc=2)
-ax.set_xlabel('Population')
-ax.set_ylabel('Profit')
-ax.set_title('Predicted Profit vs. Populution Size')
+ax.plot(np.arange(maxloop),costs,'r')
+ax.plot(np.arange(maxloop),costs2,'b')
+ax.set_xlabel('Iterations')
+ax.set_ylabel('Cost')
+ax.set_title('Error vs. Training Epoch')
 plt.show()
+
