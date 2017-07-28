@@ -9,6 +9,8 @@
 from numpy import *
 from pandas import *
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d, Axes3D
+from sklearn import linear_model
 
 # cost function
 def ComputeCost(x,y,theta):
@@ -55,11 +57,29 @@ thetas,costs = gradientdescent(X,Y,theta,alpha,maxloop)
 print(thetas)
 print(costs[maxloop-1])# 打印迭代1000次之后的cost结果，为4.51595550308，显然比第一次好很多
 
-# 在求出theta后，图形化linear regression
+# use sklearn
+def sklearn_linear_fun(x,y,data):
+    model = linear_model.LinearRegression()
+    model.fit(x,y)
+
+    f = model.predict(x).flatten()
+    print(x)
+    x = np.array(x[:, 1].A1)
+    print("x:", x)
+    fig,ax = plt.subplots(figsize=(12,8))
+    ax.plot(x,f,'r',label='Prediction')
+    ax.scatter(data.Population,data.Profit,label='Training Data')
+    ax.legend(loc=2)
+    ax.set_xlabel('Population')
+    ax.set_ylabel('Profit')
+    ax.set_title('Predicted Profit vs. Population Size')
+    plt.show()
+
+# 在求出theta后，绘制拟合曲线
 def draw_h(data,thetas):
     x=np.linspace(data.Population.min(),data.Population.max(),100)
     fun = thetas[0,0] + (thetas[0,1]*x)
-
+   # print("x:",x)
     fig,ax = plt.subplots(figsize=(12,8))
     ax.plot(x,fun,'r',label='Prediction')
     ax.scatter(data.Population,data.Profit,label='Training Data')
@@ -75,7 +95,7 @@ draw_h(data,thetas)
 alpha = 0.005 # learning rate
 maxloop = 1000
 thetas,costs2 = gradientdescent(X,Y,theta,alpha,maxloop)
-draw_h(data,thetas)
+#draw_h(data,thetas)
 
 # 显示随着循环次数，两次cost的递减函数
 fig,ax = plt.subplots(figsize=(12,8))
@@ -85,4 +105,16 @@ ax.set_xlabel('Iterations')
 ax.set_ylabel('Cost')
 ax.set_title('Error vs. Training Epoch')
 plt.show()
+
+# call sklearn_linear_fun
+sklearn_linear_fun(X, Y, data)
+
+# Normal Equation
+def normal_equation(self, X, y):
+
+   # start_time = timeit.default_timer()
+
+    X = X.T
+    X_T_X = np.linalg.pinv(X.T.dot(X)) # 奇异矩阵的伪逆矩阵
+    self.w = np.dot(X_T_X, X.T).dot(y)
 
