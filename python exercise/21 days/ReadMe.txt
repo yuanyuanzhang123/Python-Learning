@@ -5,4 +5,6 @@ Day2:
 Day3:
 一个爬取网站图片并保存到本地的爬虫，主要是使用了bs4来解析html，获取img属性等
 Day4:
-使用scrapy来爬取豆瓣电影的相关信息
+使用scrapy爬取豆瓣电影的一些信息
+Day5:
+Leetcode twoSum
