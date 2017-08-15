@@ -8,3 +8,5 @@ Day4:
 使用scrapy爬取豆瓣电影的一些信息
 Day5:
 Leetcode twoSum
+Day6:
+廖大神的例子，将他的python教程html下载并转换成pdf，转换后的pdf还有一些问题待完善
