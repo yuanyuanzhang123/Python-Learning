@@ -10,3 +10,5 @@ Day5:
 Leetcode twoSum
 Day6:
 廖大神的例子，将他的python教程html下载并转换成pdf，转换后的pdf还有一些问题待完善
+Day7:
+爬去Jupyter notebook，封装了一下昨天的htmltopdf的爬取代码
