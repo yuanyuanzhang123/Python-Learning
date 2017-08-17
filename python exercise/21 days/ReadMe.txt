@@ -11,4 +11,7 @@ Leetcode twoSum
 Day6:
 廖大神的例子，将他的python教程html下载并转换成pdf，转换后的pdf还有一些问题待完善
 Day7:
-爬去Jupyter notebook，封装了一下昨天的htmltopdf的爬取代码
+爬去Python Jupyter notebook，封装了一下昨天的htmltopdf的爬取代码
+Day8:
+对昨天的爬虫做修改，因为本爬虫比参考实例多一层目录，在爬取工作上修改完善，成功生成python使用文档的pdf文件,顺便研究了一下分词，明天爬个数据做个词云
+
