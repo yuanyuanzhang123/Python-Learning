@@ -14,4 +14,6 @@ Day7:
 爬去Python Jupyter notebook，封装了一下昨天的htmltopdf的爬取代码
 Day8:
 对昨天的爬虫做修改，因为本爬虫比参考实例多一层目录，在爬取工作上修改完善，成功生成python使用文档的pdf文件,顺便研究了一下分词，明天爬个数据做个词云
+Day9:
+从豆瓣爬一部最新上映的电影的短评，然后使用jieba分词并使用wordcloud绘制词云
 
