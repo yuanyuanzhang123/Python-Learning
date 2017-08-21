@@ -13,44 +13,40 @@ import  codecs
 import json
 
 def GetTimeByArticle(url):
-    response = requests.get(url)
-    selector = etree.HTML(response.text)
-    print(response.text)
-    time_text = selector.xpath('//div[@class="n_post_time"]')[1].text
-    return time_text
-
+    try:
+        response = requests.get(url)
+        selector = etree.HTML(response.text)
+        time_text = selector.xpath('//div[@class="n_post_time"]')[1].text
+        return time_text
+    except:
+        pass
 if __name__ == "__main__":
     out_file = codecs.open('tieba.json','w',encoding='utf-8')
     for pn in range(0,250,50):
         kw = u'网络爬虫'.encode('utf-8')
         url = 'http://tieba.baidu.com/f?kw=网络爬虫'+'&ie=utf-8&pn='+str(pn)
-        print(url)
         response = requests.get(url)
        # html = response.read()
        # print(response.text)
 
         html_dom=etree.HTML(response.text)
-        for site in html_dom.xpath('//div[@class="threadlist_author pull_right"]'):
-           # print(site)
-            title = site.xpath('.//a')[0].text
-            article_url = site.xpath('.//a')[0].attrib['href']
-            print(article_url)
-         #   reply_date=GetTimeByArticle('http://tieba.baidu.com'+article_url)
+        for site in html_dom.xpath('//li[@class=" j_thread_list clearfix"]'):
+            text_title = site.xpath('.//a/@title')
+            title = site.xpath('.//span/@title')[1]#第一个span标签下的title属性
+            #site.xpath('.//a')返回的是一个list，取这个list的第一个值获取其属性href的内容
+            article_url = site.xpath('.//a')[1].attrib['href']
+            reply_date=GetTimeByArticle('http://tieba.baidu.com'+article_url)
 
-            introduce = site.xpath('.//*[@class="threadlist_abs threadlist_abs_onlyline "]')[0].text.strip()
-            author = site.xpath('.//*[@class="frs-author-name j_user_card "]')[0].text.strip()
-            lastName = site.xpath('.//*[@class="frs-author-name j_user_card "]')[1].text.strip()
-            print(title, introduce, article_url, author, lastName)
 
             items = {}
-            items['title'] = title
-            items['author']=author
-            items['lastName']=lastName
-           # items['reply_date']=reply_date
+            items['title'] = text_title
+            items['author']= title
+          #  items['lastName']=lastName
+            items['reply_date']=reply_date
             print(items)
 
             line = json.dumps(items,ensure_ascii=False)
-            print(line)
+           # print(line)
             out_file.write(line+"\n")
         out_file.close()
     print("end")
