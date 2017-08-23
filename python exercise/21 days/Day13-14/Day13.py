@@ -9,6 +9,8 @@
 #K邻近算法
 import numpy as np
 import operator
+import matplotlib
+import matplotlib.pyplot as plt
 
 def createDataSet():
     group = np.array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
@@ -53,5 +55,41 @@ def file2matrix(filename):
     f.close()
     return returnMat,LabelVector
 
+def draw_k(features,labels):
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(features[:,1],features[:,2],15.0*np.array(labels),15.0*np.array(labels))
+    plt.show()
 
+
+def autoNorm(dataSet):
+    minvals = dataSet.min(0)  # 从列中选取最小值
+    maxVals = dataSet.max(0)
+    ranges = maxVals - minvals
+    normDataSet = np.zeros(np.shape(dataSet))
+    m = dataSet.shape[0]
+    normDataSet = dataSet - np.tile(minvals, (m, 1))
+    normDataSet = normDataSet / np.tile(ranges, (m, 1))
+    return normDataSet, ranges, minvals
+
+
+def datingClasTest():
+    h = 0.10
+    features,labels = file2matrix("datingTestSet2.txt")
+    normMat,ranges,minVals = autoNorm(features)
+    m = normMat.shape[0]
+    testVecs = int(m*h)
+    error = 0.0
+    for i in range(testVecs):
+        classiferResult = classifg_k(normMat[i,:],normMat[testVecs:m,:],labels[testVecs:m],3)
+        print("classifer came back with:%d, the real answer is: %d" % (classiferResult,labels[i]))
+        if (classiferResult != labels[i]):
+            error += 1.0
+    print("total error rate is %f" %(error/float(testVecs)))
+
+if __name__ == "__main__":
+    #filename = "datingTestSet2.txt"
+   # features,labels = file2matrix(filename)
+  #  draw_k(features,labels)
+    datingClasTest()
 

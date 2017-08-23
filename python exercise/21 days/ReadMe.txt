@@ -24,4 +24,6 @@ Day12:
 修改昨天的部分&学习一个简单的爬取股票信息的爬虫
 Day13:
 机器学习实战k邻近
+Day14:
+knn,以及使用sklearn的LinearRegression
 
