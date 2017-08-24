@@ -26,4 +26,5 @@ Day13:
 机器学习实战k邻近
 Day14:
 knn,以及使用sklearn的LinearRegression
-
+Day15:
+numpy学习，使用jupyter notebook
