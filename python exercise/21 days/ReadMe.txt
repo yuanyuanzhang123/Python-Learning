@@ -28,3 +28,5 @@ Day14:
 knn,以及使用sklearn的LinearRegression
 Day15:
 numpy学习，使用jupyter notebook
+Day16:
+pandas学习
