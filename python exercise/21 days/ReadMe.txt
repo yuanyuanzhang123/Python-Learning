@@ -30,3 +30,5 @@ Day15:
 numpy学习，使用jupyter notebook
 Day16:
 pandas学习
+Day17:
+学习神经网络基础,一个无隐藏层的神经网络的梯度下降和一个简单的有隐藏层的神经网络的正向传播
