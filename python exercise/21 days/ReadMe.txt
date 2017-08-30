@@ -36,5 +36,5 @@ Day18:
 神经网络反向传播
 Day19:
 pandas读取csv文件，统计总行数以及第一列去重后的数量
-Day20:
-numpy学习
+Day20&Day21:
+numpy学习,参考udacity的数据分析入门，使用的是python2
